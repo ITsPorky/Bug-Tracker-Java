@@ -17,7 +17,7 @@ public class NewEmployee extends JPanel {
     private JTextField empIDField, fNameField, lNameField, emailField, phoneNumberField,
             stateField, cityField, postCodeField, streetAddressField;
     // Buttons
-    private JButton closeButton, addEmpButton, addSoftwareButton;
+    private JButton closeButton, addEmpButton;
     // Employee Map
     private Map<Integer, Employee> employees;
     private Map.Entry<Integer, Employee> entry;
@@ -191,10 +191,10 @@ public class NewEmployee extends JPanel {
         newEmp.lnameValid(lNameField.getText());
         newEmp.emailValid(emailField.getText());
         newEmp.phoneNumberValid(phoneNumberField.getText());
-        newEmp.address.stateValid(stateField.getText());
-        newEmp.address.cityValid(cityField.getText());
-        newEmp.address.postCodeValid(postCodeField.getText());
-        newEmp.address.streetAddressValid(streetAddressField.getText());
+        newEmp.stateValid(stateField.getText());
+        newEmp.cityValid(cityField.getText());
+        newEmp.postCodeValid(postCodeField.getText());
+        // newEmp.roleValid(roleValid.getText());
 
         employees.put(newEmp.grabEmpID(), newEmp);
 

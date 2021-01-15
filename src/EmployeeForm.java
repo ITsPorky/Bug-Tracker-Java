@@ -57,7 +57,7 @@ public class EmployeeForm extends JPanel {
         // Initialise Form
         initForm();
         // Fill fields with employee data
-        showEmployee();
+        // showEmployee();
     }
 
     // -----------------------------------
@@ -73,105 +73,108 @@ public class EmployeeForm extends JPanel {
         // Page Title
         pageTitle = new JLabel("Employees");
         pageTitle.setFont(new Font("Helvetica", Font.BOLD, 48));
-        this.add(pageTitle, "north, wrap 40, grow");
+        this.add(pageTitle, "wrap 50, north");
 
-        // Report Section Fields/Labels
-        empIDLabel = new JLabel("Employee ID:");
-        empIDLabel = Style.title(empIDLabel);
-        empIDField = new JLabel("ex. 1");
-        empIDField = Style.label(empIDField);
+        // center contents
+        this.add(generateTable(), "wrap 20, center");
 
-        fNameLabel = new JLabel("Name:");
-        fNameLabel = Style.title(fNameLabel);
-        fNameField = new JLabel();
-        fNameField = Style.label(fNameField);
+        // // Report Section Fields/Labels
+        // empIDLabel = new JLabel("Employee ID:");
+        // empIDLabel = Style.title(empIDLabel);
+        // empIDField = new JLabel("ex. 1");
+        // empIDField = Style.label(empIDField);
 
-        lNameLabel = new JLabel("Last Name:");
-        lNameLabel = Style.title(lNameLabel);
-        lNameField = new JLabel();
-        lNameField = Style.label(lNameField);
+        // fNameLabel = new JLabel("Name:");
+        // fNameLabel = Style.title(fNameLabel);
+        // fNameField = new JLabel();
+        // fNameField = Style.label(fNameField);
 
-        emailLabel = new JLabel("Email:");
-        emailLabel = Style.title(emailLabel);
-        emailField = new JLabel();
-        emailField = Style.label(emailField);
+        // lNameLabel = new JLabel("Last Name:");
+        // lNameLabel = Style.title(lNameLabel);
+        // lNameField = new JLabel();
+        // lNameField = Style.label(lNameField);
 
-        phoneNumberLabel = new JLabel("Phone Number:");
-        phoneNumberLabel = Style.title(phoneNumberLabel);
-        phoneNumberField = new JLabel();
-        phoneNumberField = Style.label(phoneNumberField);
+        // emailLabel = new JLabel("Email:");
+        // emailLabel = Style.title(emailLabel);
+        // emailField = new JLabel();
+        // emailField = Style.label(emailField);
 
-        stateLabel = new JLabel("State:");
-        stateLabel = Style.title(stateLabel);
-        stateField = new JLabel();
-        stateField = Style.label(stateField);
+        // phoneNumberLabel = new JLabel("Phone Number:");
+        // phoneNumberLabel = Style.title(phoneNumberLabel);
+        // phoneNumberField = new JLabel();
+        // phoneNumberField = Style.label(phoneNumberField);
 
-        cityLabel = new JLabel("City:");
-        cityLabel = Style.title(cityLabel);
-        cityField = new JLabel();
-        cityField = Style.label(cityField);
+        // stateLabel = new JLabel("State:");
+        // stateLabel = Style.title(stateLabel);
+        // stateField = new JLabel();
+        // stateField = Style.label(stateField);
 
-        postCodeLabel = new JLabel("Post Code:");
-        postCodeLabel = Style.title(postCodeLabel);
-        postCodeField = new JLabel();
-        postCodeField = Style.label(postCodeField);
+        // cityLabel = new JLabel("City:");
+        // cityLabel = Style.title(cityLabel);
+        // cityField = new JLabel();
+        // cityField = Style.label(cityField);
 
-        roleLabel = new JLabel("Role:");
-        roleLabel = Style.title(roleLabel);
-        roleField = new JLabel();
-        roleField = Style.label(roleField);
+        // postCodeLabel = new JLabel("Post Code:");
+        // postCodeLabel = Style.title(postCodeLabel);
+        // postCodeField = new JLabel();
+        // postCodeField = Style.label(postCodeField);
 
-        // Title headings for list
-        this.add(empIDLabel, "gapright 10, grow 10");
-        this.add(fNameLabel, "gapright 10, grow");
-        this.add(lNameLabel, "gapright 10, grow");
-        this.add(emailLabel, "gapright 10, grow");
-        this.add(phoneNumberLabel, "gapright 10, grow");
-        this.add(stateLabel, "gapright 10, grow");
-        this.add(cityLabel, "gapright 10, grow");
-        this.add(postCodeLabel, "gapright 10, grow");
-        this.add(roleLabel, "gapright 10, wrap");
+        // roleLabel = new JLabel("Role:");
+        // roleLabel = Style.title(roleLabel);
+        // roleField = new JLabel();
+        // roleField = Style.label(roleField);
 
-        // Scroll pane for employees
+        // // Title headings for list
+        // this.add(empIDLabel, "gapright 10, grow 10");
+        // this.add(fNameLabel, "gapright 10, grow");
+        // this.add(lNameLabel, "gapright 10, grow");
+        // this.add(emailLabel, "gapright 10, grow");
+        // this.add(phoneNumberLabel, "gapright 10, grow");
+        // this.add(stateLabel, "gapright 10, grow");
+        // this.add(cityLabel, "gapright 10, grow");
+        // this.add(postCodeLabel, "gapright 10, grow");
+        // this.add(roleLabel, "gapright 10, wrap");
+
+        // // Scroll pane for employees
         
-        while(iterator.hasNext()) {
-            // Increment Iterator
-            entry = iterator.next();
+        // while(iterator.hasNext()) {
+        //     // Increment Iterator
+        //     entry = iterator.next();
 
-            // Create labels
-            empIDField = new JLabel();
-            empIDField.setFont(new Font("Arial", Font.PLAIN, 16));
-            fNameField = new JLabel();
-            fNameField.setFont(new Font("Arial", Font.PLAIN, 16));
-            lNameField = new JLabel();
-            lNameField.setFont(new Font("Arial", Font.PLAIN, 16));
-            emailField = new JLabel();
-            emailField.setFont(new Font("Arial", Font.PLAIN, 16));
-            phoneNumberField = new JLabel();
-            phoneNumberField.setFont(new Font("Arial", Font.PLAIN, 16));
-            stateField = new JLabel();
-            stateField.setFont(new Font("Arial", Font.PLAIN, 16));
-            cityField = new JLabel();
-            cityField.setFont(new Font("Arial", Font.PLAIN, 16));
-            postCodeField = new JLabel();
-            postCodeField.setFont(new Font("Arial", Font.PLAIN, 16));
-            roleField = new JLabel();
-            roleField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     // Create labels
+        //     empIDField = new JLabel();
+        //     empIDField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     fNameField = new JLabel();
+        //     fNameField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     lNameField = new JLabel();
+        //     lNameField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     emailField = new JLabel();
+        //     emailField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     phoneNumberField = new JLabel();
+        //     phoneNumberField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     stateField = new JLabel();
+        //     stateField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     cityField = new JLabel();
+        //     cityField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     postCodeField = new JLabel();
+        //     postCodeField.setFont(new Font("Arial", Font.PLAIN, 16));
+        //     roleField = new JLabel();
+        //     roleField.setFont(new Font("Arial", Font.PLAIN, 16));
 
-            // Employee data for list
-            this.add(empIDField, "grow");
-            this.add(fNameField, "grow");
-            this.add(lNameField, "grow");
-            this.add(emailField, "grow");
-            this.add(phoneNumberField, "grow");
-            this.add(stateField, "grow");
-            this.add(cityField, "grow");
-            this.add(postCodeField, "grow");
-            this.add(roleField, "wrap");
+        //     // Employee data for list
+        //     this.add(empIDField, "grow");
+        //     this.add(fNameField, "grow");
+        //     this.add(lNameField, "grow");
+        //     this.add(emailField, "grow");
+        //     this.add(phoneNumberField, "grow");
+        //     this.add(stateField, "grow");
+        //     this.add(cityField, "grow");
+        //     this.add(postCodeField, "grow");
+        //     this.add(roleField, "wrap");
 
-            // Fill fields with data
-            showEmployee();
-        }
+        //     // Fill fields with data
+        //     showEmployee();
+        // }
 
         // Scroll Pane for Employee Software
         // scrPane = new JScrollPane(softwareForm);
@@ -189,13 +192,13 @@ public class EmployeeForm extends JPanel {
         addEmpButton = new JButton("Add Employee");
         addEmpButton = Style.styleButton(addEmpButton, 20);
         addEmpButton = Style.hover(addEmpButton);
-        this.add(addEmpButton);
+        this.add(addEmpButton, "wrap");
 
         // Edit Employee Button
         editEmpButton = new JButton("Edit Employee");
         editEmpButton = Style.styleButton(editEmpButton, 20);
         editEmpButton = Style.hover(editEmpButton);
-        this.add(editEmpButton);
+        this.add(editEmpButton, "wrap");
 
 
         // -----------------------------------
@@ -274,9 +277,32 @@ public class EmployeeForm extends JPanel {
         // scrPane.repaint();
     }
 
-    public void generateTable() {
-        
+    public JTable generateTable() {
+        // Column names
+        String[] columnNames = {"ID:", "Name:", "Email:", "Phone:", 
+                "State:", "City:", "PostCode", "Role:"};
+        // Table employee data
+        Object [] [] data = {};
+        while(iterator.hasNext()) {
+            // Get employee data
+            entry = iterator.next();
+            // Insert employee data into array
+            data = new Object [] []{
+                {entry.getValue().grabEmpID().toString(), 
+                    entry.getValue().grabFirstName() + " " + entry.getValue().grabLastName(),
+                    entry.getValue().grabEmail(),
+                    entry.getValue().grabPhoneNumber(),
+                    entry.getValue().grabState(),
+                    entry.getValue().grabCity(),
+                    entry.getValue().grabPostCode(),
+                    entry.getValue().grabRole()
+                }
+            };
+        }
 
+        JTable table = new JTable(data, columnNames);
+        
+        return table;
     }
 
 }

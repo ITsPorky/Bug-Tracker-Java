@@ -186,10 +186,10 @@ public class EditEmployee extends JFrame {
         lNameField.setText(entry.getValue().grabLastName());
         emailField.setText(entry.getValue().grabEmail());
         phoneNumberField.setText(entry.getValue().grabPhoneNumber());
-        stateField.setText(entry.getValue().address.grabState());
-        cityField.setText(entry.getValue().address.grabCity());
-        postCodeField.setText(entry.getValue().address.grabPostCode());
-        streetAddressField.setText(entry.getValue().address.grabStreetAddress());
+        stateField.setText(entry.getValue().grabState());
+        cityField.setText(entry.getValue().grabCity());
+        postCodeField.setText(entry.getValue().grabPostCode());
+        // roleField.setText(entry.getValue().grabRole());
 
     }
 
@@ -199,10 +199,10 @@ public class EditEmployee extends JFrame {
         entry.getValue().lnameValid(lNameField.getText());
         entry.getValue().emailValid(emailField.getText());
         entry.getValue().phoneNumberValid(phoneNumberField.getText());
-        entry.getValue().address.stateValid(stateField.getText());
-        entry.getValue().address.cityValid(cityField.getText());
-        entry.getValue().address.postCodeValid(postCodeField.getText());
-        entry.getValue().address.streetAddressValid(streetAddressField.getText());
+        entry.getValue().stateValid(stateField.getText());
+        entry.getValue().cityValid(cityField.getText());
+        entry.getValue().postCodeValid(postCodeField.getText());
+        // entry.getValue().roleValid(roleField.getText());
     }
 
 }

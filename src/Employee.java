@@ -272,6 +272,48 @@ public class Employee {
         setPhoneNumber(input);
     }
 
+    // State Validation
+    public void stateValid(String input) {
+        boolean flag;
+        do {
+            String statePattern = "[A-Z\\s]{2,4}";
+            flag = input.matches(statePattern);
+            if (!flag) System.out.println("Invalid state");
+        } while (!flag);
+        System.out.println("Valid state");
+        System.out.println("The state " + input + " has been set\n");
+        
+        setState(input);
+    }
+
+    // City Validation
+    public void cityValid(String input) {
+        boolean flag;
+        do {
+            String cityPattern = "[a-zA-Z\\s]{1,25}";
+            flag = input.matches(cityPattern);
+            if (!flag) System.out.println("Invalid city");
+        } while (!flag);
+        System.out.println("Valid city");
+        System.out.println("The city " + input + " has been set\n");
+        
+        setCity(input);
+    }
+
+    // Post Code validation
+    public void postCodeValid(String input) {
+        boolean flag;
+        do {
+            String postCodePattern = "[0-9\\s]{4}";
+            flag = input.matches(postCodePattern);
+            if (!flag) System.out.println("Invalid post code");
+        } while (!flag);
+        System.out.println("Valid post code");
+        System.out.println("The post code " + input + " has been set\n");
+        
+        setPostCode(input);
+    }
+
     public void printEmployee(Employee emp) {
         // Get employee info
         JLabel empName = new JLabel(getFirstName() + " " + getLastName());
