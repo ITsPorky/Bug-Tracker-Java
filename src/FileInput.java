@@ -49,8 +49,6 @@ public class FileInput {
         // Employee Data
         String firstName, lastName, email, phone, state, city, postCode, streetName;
         Integer empID;
-        // Software Data
-        String companyName, softwareName, compState, compCity, compPostCode, compStreetAddress, versionNumber, expiryDate, licenseType;
 
         while (scan.hasNextLine()) {
             // Get Employee Data
@@ -74,25 +72,6 @@ public class FileInput {
             else {
                 employees.put(empID, employee);
                 break;
-            }
-
-            // Get Software info
-            while (validation.equals("[") || validation.equals(", ")) {
-                companyName = scan.nextLine();
-                softwareName = scan.nextLine();
-                compState = scan.nextLine();
-                compCity = scan.nextLine();
-                compPostCode = scan.nextLine();
-                compStreetAddress = scan.nextLine();
-                versionNumber = scan.nextLine();
-                expiryDate = scan.nextLine();
-                licenseType = scan.nextLine();
-
-                if (scan.hasNextLine()) {
-                    validation = scan.nextLine();
-                }else {
-                    break;
-                }
             }
 
             employees.put(empID, employee);

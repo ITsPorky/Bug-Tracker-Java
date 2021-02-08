@@ -1,8 +1,10 @@
 // Employee Class
 import javax.swing.*;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Map;
+import java.util.Set;
+import java.sql.*;
 
 public class Employee {
 
@@ -19,9 +21,9 @@ public class Employee {
     private String city;
     private String postCode;
     private String role;
-    // List next/previous
-    Map.Entry<Integer, Employee> next;
-    Map.Entry<Integer, Employee> previous;
+    
+    // private Map.Entry<Integer, Employee> next;
+    // private Map.Entry<Integer, Employee> previous;
     // Validation Scanner
     Scanner sc = new Scanner(System.in);
 
@@ -198,28 +200,28 @@ public class Employee {
     // Validation Methods
 
     // Employee ID Valid
-    public void empIDValid(String input) {
+    public void empIDValid(int input) {
         boolean flag;
         do {
-            String IDPattern = "[0-9]{1,25}";
-            flag = input.matches(IDPattern);
-            if (!flag) {
+            // int IDPattern = "[0-9]{1,25}";
+            // flag = input.matches(IDPattern);
+            if (input == (int)input) {
                 System.out.println("Invalid Employee ID");
                 JPopupMenu error = new JPopupMenu("Error: Invalid Input");
 
                 break;
             }
-        } while (!flag);
+        } while (input == (int)input);
         System.out.println("Valid Employee ID");
         System.out.println("The Employee ID " + input + " has been set\n");
 
-        setEmpID(Integer.parseInt(input));
+        setEmpID(input);
     }
 
     // First Name Validation
     public void fnameValid(String input) {
         boolean flag;
-                do {
+        do {
             String namePattern = "[a-zA-Z\\s]{3,25}";
             flag = input.matches(namePattern);
             if (!flag) System.out.println("Invalid first name");
@@ -314,14 +316,18 @@ public class Employee {
         setPostCode(input);
     }
 
-    public void printEmployee(Employee emp) {
-        // Get employee info
-        JLabel empName = new JLabel(getFirstName() + " " + getLastName());
-        JLabel email = new JLabel(getEmail());
-        JLabel phone = new JLabel(getPhoneNumber());
-
-        // Display Employee info
-
+    // Role Validatiion
+    public void roleValid(String input) {
+        boolean flag;
+        do {
+            String rolePattern = "[a-zA-Z\\s]{1,25}";
+            flag = input.matches(rolePattern);
+            if (!flag) System.out.println("Invalid role");
+        } while (!flag);
+        System.out.println("Valid role");
+        System.out.println("The role " + input + " has been set\n");
+        
+        setRole(input);
     }
 
     // Output Of Employee Objects 

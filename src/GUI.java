@@ -19,18 +19,12 @@ public class GUI extends JFrame {
     private JFileChooser fileChooser;
     private String filePath;
 
-    private Map<Integer, Employee> employees;
+    private EmployeeMap employees;
+    private BugMap bugs;
 
     // Buttons
-    private JButton homeButton, openFileButton, exitButton, 
+    private JButton homeButton, exitButton, bugButton, 
             employeeButton, addEmpButton, empReport;
-
-    // Menu Fields
-    private JMenu fileMenu;
-    private JMenuItem open, save;
-
-    private JMenu view;
-    private JMenuItem viewEmployees;
 
     // Panels
     private JPanel left, center;
@@ -44,10 +38,10 @@ public class GUI extends JFrame {
 
     // Default Constructor
     public GUI() {
-        employees = new HashMap<Integer, Employee>();
-        chooseFile();
-        // Pass values to input
-        FileInput input = new FileInput(filePath, employees);
+        employees = new EmployeeMap();
+        bugs = new BugMap();
+        // Connect to database
+        // Database db = new Database();
         // Initialise GUI Window
         initWindow();
     }
@@ -63,30 +57,8 @@ public class GUI extends JFrame {
         // Initialise the GUI
         // Methods
         this.setLayout(new BorderLayout());
-        this.setTitle("Employee Software Tracker | " + filePath);
+        this.setTitle("Employee Software Tracker");
         this.setSize(900, 600);
-
-        // Menu
-        // Menu 1
-        JMenuBar menuBar = new JMenuBar();
-        this.add(menuBar);
-        fileMenu = new JMenu("File");
-        fileMenu.setFont(new Font("Arial", Font.PLAIN, 16));
-        open = new JMenuItem("Open File");
-        open.setFont(new Font("Arial", Font.PLAIN, 16));
-        save = new JMenuItem("Save");
-        save.setFont(new Font("Arial", Font.PLAIN, 16));
-        fileMenu.add(open);
-        fileMenu.add(save);
-        menuBar.add(fileMenu);
-
-        // Menu 3
-        view = new JMenu("View");
-        view.setFont(new Font("Arial", Font.PLAIN, 16));
-        viewEmployees = new JMenuItem("View Employees");
-        viewEmployees.setFont(new Font("Arial", Font.PLAIN, 16));
-        view.add(viewEmployees);
-        menuBar.add(view);
 
         // Logo
         logo = new JButton("Bug Tracker");
@@ -101,6 +73,8 @@ public class GUI extends JFrame {
         // Center Menu Buttons
         center = new JPanel();
         center.setBackground(Color.WHITE);
+        
+        // TODO: Create a home page
 
         // Home Button
         homeButton = new JButton("Home");
@@ -108,11 +82,11 @@ public class GUI extends JFrame {
         homeButton = Style.hover(homeButton);
         left.add(homeButton, "wrap, grow");
 
-        // Open Button
-        openFileButton = new JButton("Open New File");
-        openFileButton = Style.styleButton(openFileButton, 20);
-        openFileButton = Style.hover(openFileButton);
-        left.add(openFileButton, "wrap, grow");
+        // View Employees
+        bugButton = new JButton("View Bugs");
+        bugButton = Style.styleButton(bugButton, 20);
+        bugButton = Style.hover(bugButton);
+        left.add(bugButton, "wrap, grow");
 
         // View Employees
         employeeButton = new JButton("View Employees");
@@ -121,7 +95,7 @@ public class GUI extends JFrame {
         left.add(employeeButton, "wrap, grow");
 
         // Save and Exit Button
-        exitButton = new JButton("Save & Exit");
+        exitButton = new JButton("Exit");
         exitButton = Style.styleButton(exitButton, 20);
         exitButton = Style.hover(exitButton);
         left.add(exitButton, "wrap, grow");
@@ -149,11 +123,24 @@ public class GUI extends JFrame {
             }
         });
 
-        // Open File Menu
-        openFileButton.addActionListener(new ActionListener() {
+        // View Employees Button
+        bugButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chooseFile();
+                // Remove current panel
+                center.removeAll();
+                center.repaint();
+                center.revalidate();
+
+                // Read database data
+                Database db = new Database();
+                db.readBugData(bugs);
+
+                // Add Form panel
+                ViewBugs form = new ViewBugs(bugs.grabBugs());
+                center.add(form);
+                center.repaint();
+                center.revalidate();
             }
         });
 
@@ -165,37 +152,16 @@ public class GUI extends JFrame {
                 center.removeAll();
                 center.repaint();
                 center.revalidate();
-                
+
+                // Read database data
+                Database db = new Database();
+                db.readEmpData(employees);
+
                 // Add Form panel
-                EmployeeForm form = new EmployeeForm(employees);
+                ViewEmployee form = new ViewEmployee(employees.grabEmployees());
                 center.add(form);
                 center.repaint();
                 center.revalidate();
-            }
-        });
-
-        // Menu Bar Listeners
-        // Open File
-        open.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chooseFile();
-            }
-        });
-
-        save.addActionListener(new ActionListener() {
-            @Override 
-            public void actionPerformed(ActionEvent e) {
-                save();
-            }
-        });
-
-        // View Employess 
-        viewEmployees.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add Form
-                EmployeeForm form = new EmployeeForm(employees);
             }
         });
 
@@ -203,7 +169,7 @@ public class GUI extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                saveAndExit();
+                closeWindow();
             }
         });
 
@@ -220,7 +186,6 @@ public class GUI extends JFrame {
             }
         });
 
-        this.setJMenuBar(menuBar);
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
@@ -231,30 +196,6 @@ public class GUI extends JFrame {
     // -----------------------------------
     // Methods
     // -----------------------------------
-
-    // Read Data from file into Memory
-    private void chooseFile() {
-        fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        fileChooser.setDialogTitle("Choose Directory");
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        int returnValue = fileChooser.showSaveDialog(null);
-        if(returnValue == JFileChooser.APPROVE_OPTION) {
-            filePath = fileChooser.getSelectedFile().toString();
-        }
-
-    }
-
-    // Save data into text file
-    private void save() {
-        FileOutput output = new FileOutput(filePath, employees);
-    }
-
-    // Save data into text file and exit program
-    private void saveAndExit() {
-        FileOutput output = new FileOutput(filePath, employees);
-        closeWindow();
-    }
 
     // Close the Current Window
     private void closeWindow() {

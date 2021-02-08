@@ -13,9 +13,9 @@ public class NewEmployee extends JPanel {
     // Labels
     // Employee Labels/Fields
     private JLabel empIDLabel, fNameLabel, lNameLabel, emailLabel, phoneNumberLabel,
-            stateLabel, cityLabel, postCodeLabel, streetAddressLabel;
+            stateLabel, cityLabel, postCodeLabel, streetAddressLabel, roleLabel, pageTitle;
     private JTextField empIDField, fNameField, lNameField, emailField, phoneNumberField,
-            stateField, cityField, postCodeField, streetAddressField;
+            stateField, cityField, postCodeField, streetAddressField, roleField;
     // Buttons
     private JButton closeButton, addEmpButton;
     // Employee Map
@@ -44,114 +44,102 @@ public class NewEmployee extends JPanel {
 
     private void initNewEmployee() {
 
-        // Create new Employee
-        Employee newEmp = new Employee();
-
         // Main Panel Contents
         this.setLayout(new MigLayout());
         this.setBackground(Color.WHITE);
 
-        // Center New Window
-        // Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        // this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        // Page Title
+        pageTitle = new JLabel("Add Employee");
+        pageTitle.setFont(new Font("Helvetica", Font.BOLD, 48));
+        this.add(pageTitle, "span, wrap 50");
 
         // Report Section Fields/Labels
         empIDLabel = new JLabel("Employee ID:");
         empIDField = new JTextField("ex. 1");
         empIDLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         empIDField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // empIDLabel.setBounds(50, 5, 150, 25);
-        // empIDField.setBounds(50, 30, 150, 25);
 
         fNameLabel = new JLabel("First Name:");
         fNameField = new JTextField("ex. John");
         fNameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         fNameField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // fNameLabel.setBounds(250, 5, 150, 25);
-        // fNameField.setBounds(250, 30, 150, 25);
 
         lNameLabel = new JLabel("Last Name:");
         lNameField = new JTextField("ex. Doe");
         lNameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         lNameField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // lNameLabel.setBounds(450, 5, 150, 25);
-        // lNameField.setBounds(450, 30, 150, 25);
 
         emailLabel = new JLabel("Email:");
         emailField = new JTextField("ex. example@domain.com");
         emailLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         emailField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // emailLabel.setBounds(50, 60, 150, 25);
-        // emailField.setBounds(50, 90, 150, 25);
 
         phoneNumberLabel = new JLabel("Phone Number:");
         phoneNumberField = new JTextField("ex. 0400000000");
         phoneNumberLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         phoneNumberField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // phoneNumberLabel.setBounds(250, 60, 150, 25);
-        // phoneNumberField.setBounds(250, 90, 150, 25);
+
+        roleLabel = new JLabel("Job Role:");
+        roleField = new JTextField("ex. Programmer");
+        roleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        roleField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         stateLabel = new JLabel("State:");
         stateField = new JTextField("ex. QLD");
         stateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         stateField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // stateLabel.setBounds(450, 60, 150, 25);
-        // stateField.setBounds(450, 90, 150, 25);
 
         cityLabel = new JLabel("City:");
         cityField = new JTextField("ex. Toowoomba");
         cityLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         cityField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // cityLabel.setBounds(50, 120, 150, 25);
-        // cityField.setBounds(50, 150, 150, 25);
 
         postCodeLabel = new JLabel("Post Code:");
         postCodeField = new JTextField("ex. 4000");
         postCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         postCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // postCodeLabel.setBounds(250, 120, 150, 25);
-        // postCodeField.setBounds(250, 150, 150, 25);
 
         streetAddressLabel = new JLabel("Street Address:");
         streetAddressField = new JTextField("ex. 123 Example Street");
         streetAddressLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         streetAddressField.setFont(new Font("Arial", Font.PLAIN, 20));
-        // streetAddressLabel.setBounds(450, 120, 150, 25);
-        // streetAddressField.setBounds(450, 150, 150, 25);
 
         // Top Row
-        this.add(empIDLabel, "label align");
-        this.add(empIDField, "grow");
-        this.add(fNameLabel, "label align");
+        // this.add(empIDLabel, "label align");
+        // this.add(empIDField, "grow");
+        // 1st Row
+        this.add(fNameLabel, "label align, right");
         this.add(fNameField, "grow");
-        this.add(lNameLabel, "label align");
-        this.add(lNameField, "wrap");
+        this.add(lNameLabel, "label align, right");
+        this.add(lNameField, "grow, wrap 50");
         // 2nd Row
-        this.add(emailLabel, "label align");
+        this.add(emailLabel, "label align, right");
         this.add(emailField, "grow");
-        this.add(phoneNumberLabel, "label align");
-        this.add(phoneNumberField);
-        this.add(stateLabel, "label align");
-        this.add(stateField, "wrap");
+        this.add(phoneNumberLabel, "label align, right");
+        this.add(phoneNumberField, "grow, wrap 50");
         // 3rd Row
-        this.add(cityLabel, "label align");
-        this.add(cityField);
-        this.add(postCodeLabel, "label align");
-        this.add(postCodeField);
-        this.add(streetAddressLabel, "label align");
-        this.add(streetAddressField, "wrap");
+        this.add(roleLabel, "label align, right");
+        this.add(roleField, "grow");
+        this.add(stateLabel, "label align, right");
+        this.add(stateField, "grow, wrap 50");
 
-        // Add Employee Button
-        addEmpButton = new JButton("Save & Close");
-        addEmpButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        addEmpButton.setBounds(250, 495, 150, 25);
-        this.add(addEmpButton, "span 3");
+        // 4th Row
+        this.add(postCodeLabel, "label align, right");
+        this.add(postCodeField, "grow");
+        this.add(cityLabel, "label align, right");
+        this.add(cityField, "grow, wrap 50");
 
         // Close Button
-        closeButton = new JButton("Close Window");
-        closeButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        closeButton.setBounds(250, 525, 150, 25);
-        this.add(closeButton, "span 3");
+        closeButton = new JButton("Cancel");
+        closeButton = Style.styleButton(closeButton, 20);
+        closeButton = Style.hover(closeButton);
+        this.add(closeButton, "span 2, align left");
+
+        // Add Employee Button
+        addEmpButton = new JButton("Save Employee");
+        addEmpButton = Style.styleButton(addEmpButton, 20);
+        addEmpButton = Style.hover(addEmpButton);
+        this.add(addEmpButton, "span 2, align right");
 
         // -----------------------------------
         // Listeners
@@ -161,9 +149,25 @@ public class NewEmployee extends JPanel {
         addEmpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Create new Employee
+                Employee newEmp = new Employee();
+                // Save New Employee Data
                 addValues(newEmp);
-                FileOutput output = new FileOutput(employees);
-                // dispose();
+                // Open database
+                Database db = new Database();
+                // Insert values
+                db.insertEmployeeData(newEmp);
+
+                // Remove current panel
+                removeAll();
+                repaint();
+                revalidate();
+                
+                // Add Form panel
+                ViewEmployee form = new ViewEmployee(employees);
+                add(form);
+                repaint();
+                revalidate();
             }
         });
 
@@ -171,8 +175,16 @@ public class NewEmployee extends JPanel {
         closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                remove(newEmp.grabEmpID());
-                FileOutput output = new FileOutput(employees);
+                // Remove current panel
+                removeAll();
+                repaint();
+                revalidate();
+                
+                // Add Form panel
+                ViewEmployee form = new ViewEmployee(employees);
+                add(form);
+                repaint();
+                revalidate();
                 // dispose();
             }
         });
@@ -186,7 +198,7 @@ public class NewEmployee extends JPanel {
     // -----------------------------------
 
     private void addValues(Employee newEmp) {
-        newEmp.empIDValid(empIDField.getText());
+        newEmp.empIDValid(employees.size() + 1);
         newEmp.fnameValid(fNameField.getText());
         newEmp.lnameValid(lNameField.getText());
         newEmp.emailValid(emailField.getText());
@@ -194,7 +206,7 @@ public class NewEmployee extends JPanel {
         newEmp.stateValid(stateField.getText());
         newEmp.cityValid(cityField.getText());
         newEmp.postCodeValid(postCodeField.getText());
-        // newEmp.roleValid(roleValid.getText());
+        newEmp.roleValid(roleField.getText());
 
         employees.put(newEmp.grabEmpID(), newEmp);
 

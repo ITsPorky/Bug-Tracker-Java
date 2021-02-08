@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
-
 import java.awt.*;
 
 public class Style {
@@ -82,4 +81,13 @@ public class Style {
 
         return label;
     }
+
+    // Table
+    public static JTable table(JTable table) {
+        // Styling
+        table.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        
+        return table;
+    }
+
 }

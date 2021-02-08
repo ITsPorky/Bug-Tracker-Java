@@ -2,12 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
+import net.miginfocom.swing.MigLayout;
 
-public class EditEmployee extends JFrame {
+public class EditEmployee extends JPanel {
 
     // ----------------------------------
     // Variables/Fields
@@ -16,14 +14,15 @@ public class EditEmployee extends JFrame {
     // Labels
     // Employee Labels/Fields
     private JLabel empIDLabel, fNameLabel, lNameLabel, emailLabel, phoneNumberLabel,
-            stateLabel, cityLabel, postCodeLabel, streetAddressLabel;
+            stateLabel, cityLabel, postCodeLabel, streetAddressLabel, roleLabel;
     private JTextField empIDField, fNameField, lNameField, emailField, phoneNumberField,
-            stateField, cityField, postCodeField, streetAddressField;
+            stateField, cityField, postCodeField, streetAddressField, roleField;
     // Buttons
     private JButton closeButton, saveButton;
     // Employee Map
     private Map<Integer, Employee> employees;
     private Map.Entry<Integer, Employee> entry;
+    private Employee emp;
 
 
     // ----------------------------------
@@ -36,13 +35,13 @@ public class EditEmployee extends JFrame {
     }
 
     // Default Constructor
-    public EditEmployee(Map<Integer, Employee> employee, Map.Entry<Integer, Employee> entryEmp) {
+    public EditEmployee(Map<Integer, Employee> employee, Employee emp) {
         this.employees = employee;
-        this.entry = entryEmp;
+        this.emp = emp;
         // Initialise Form
         initEditEmp();
         // Fill fields with employee data
-        showEmployee(entry);
+        showEmployee(emp);
     }
 
 
@@ -53,100 +52,96 @@ public class EditEmployee extends JFrame {
     private void initEditEmp() {
 
         // Main Panel Contents
-        this.setLayout(null);
-        this.setTitle("Employee Software Tracker | Edit Employee");
-        this.setSize(675, 600);
-
-        // Center New Window
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        this.setLayout(new MigLayout());
+        this.setBackground(Color.WHITE);
 
         // Report Section Fields/Labels
         empIDLabel = new JLabel("Employee ID:");
         empIDField = new JTextField("ex. 1");
-        empIDField.setFont(new Font("Arial", Font.PLAIN, 12));
-        empIDLabel.setBounds(50, 5, 150, 25);
-        empIDField.setBounds(50, 30, 150, 25);
+        empIDLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        empIDField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         fNameLabel = new JLabel("First Name:");
         fNameField = new JTextField("ex. John");
-        fNameField.setFont(new Font("Arial", Font.PLAIN, 12));
-        fNameLabel.setBounds(250, 5, 150, 25);
-        fNameField.setBounds(250, 30, 150, 25);
+        fNameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        fNameField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         lNameLabel = new JLabel("Last Name:");
         lNameField = new JTextField("ex. Doe");
-        lNameField.setFont(new Font("Arial", Font.PLAIN, 12));
-        lNameLabel.setBounds(450, 5, 150, 25);
-        lNameField.setBounds(450, 30, 150, 25);
+        lNameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        lNameField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         emailLabel = new JLabel("Email:");
         emailField = new JTextField("ex. example@domain.com");
-        emailField.setFont(new Font("Arial", Font.PLAIN, 12));
-        emailLabel.setBounds(50, 60, 150, 25);
-        emailField.setBounds(50, 90, 150, 25);
+        emailLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        emailField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         phoneNumberLabel = new JLabel("Phone Number:");
-        phoneNumberField = new JTextField("ex. 04xxxxxxxx");
-        phoneNumberField.setFont(new Font("Arial", Font.PLAIN, 12));
-        phoneNumberLabel.setBounds(250, 60, 150, 25);
-        phoneNumberField.setBounds(250, 90, 150, 25);
+        phoneNumberField = new JTextField("ex. 0400000000");
+        phoneNumberLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        phoneNumberField.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        roleLabel = new JLabel("Job Role:");
+        roleField = new JTextField("ex. Programmer");
+        roleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        roleField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         stateLabel = new JLabel("State:");
-        stateField = new JTextField("QLD");
-        stateField.setFont(new Font("Arial", Font.PLAIN, 12));
-        stateLabel.setBounds(450, 60, 150, 25);
-        stateField.setBounds(450, 90, 150, 25);
+        stateField = new JTextField("ex. QLD");
+        stateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        stateField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         cityLabel = new JLabel("City:");
         cityField = new JTextField("ex. Toowoomba");
-        cityLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-        cityLabel.setBounds(50, 120, 150, 25);
-        cityField.setBounds(50, 150, 150, 25);
+        cityLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        cityField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         postCodeLabel = new JLabel("Post Code:");
         postCodeField = new JTextField("ex. 4000");
-        postCodeField.setFont(new Font("Arial", Font.PLAIN, 12));
-        postCodeLabel.setBounds(250, 120, 150, 25);
-        postCodeField.setBounds(250, 150, 150, 25);
+        postCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        postCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         streetAddressLabel = new JLabel("Street Address:");
         streetAddressField = new JTextField("ex. 123 Example Street");
-        streetAddressField.setFont(new Font("Arial", Font.PLAIN, 12));
-        streetAddressLabel.setBounds(450, 120, 150, 25);
-        streetAddressField.setBounds(450, 150, 150, 25);
+        streetAddressLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        streetAddressField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Top Row
-        this.add(empIDLabel);
-        this.add(fNameLabel);
-        this.add(lNameLabel);
-        this.add(empIDField);
-        this.add(fNameField);
-        this.add(lNameField);
+        // this.add(empIDLabel, "label align");
+        // this.add(empIDField, "grow");
+        // 1st Row
+        this.add(fNameLabel, "label align, right");
+        this.add(fNameField, "grow");
+        this.add(lNameLabel, "label align, right");
+        this.add(lNameField, "grow, wrap 50");
         // 2nd Row
-        this.add(emailLabel);
-        this.add(phoneNumberLabel);
-        this.add(stateLabel);
-        this.add(emailField);
-        this.add(phoneNumberField);
-        this.add(stateField);
+        this.add(emailLabel, "label align, right");
+        this.add(emailField, "grow");
+        this.add(phoneNumberLabel, "label align, right");
+        this.add(phoneNumberField, "grow, wrap 50");
         // 3rd Row
-        this.add(cityLabel);
-        this.add(postCodeLabel);
-        this.add(streetAddressLabel);
-        this.add(cityField);
-        this.add(postCodeField);
-        this.add(streetAddressField);
+        this.add(roleLabel, "label align, right");
+        this.add(roleField, "grow");
+        this.add(stateLabel, "label align, right");
+        this.add(stateField, "grow, wrap 50");
+
+        // 4th Row
+        this.add(postCodeLabel, "label align, right");
+        this.add(postCodeField, "grow");
+        this.add(cityLabel, "label align, right");
+        this.add(cityField, "grow, wrap 50");
+
+        // Close Button
+        closeButton = new JButton("Cancel");
+        closeButton = Style.styleButton(closeButton, 20);
+        closeButton = Style.hover(closeButton);
+        this.add(closeButton, "span 2, align left");
 
         // Save Button
         saveButton = new JButton("Save Data");
-        saveButton.setBounds(250, 495, 150, 25);
-        this.add(saveButton);
-
-        // Close Button
-        closeButton = new JButton("Close Window");
-        closeButton.setBounds(250, 525, 150, 25);
-        this.add(closeButton);
+        saveButton = Style.styleButton(saveButton, 20);
+        saveButton = Style.hover(saveButton);
+        this.add(saveButton, "span 2, align right");
 
         // -----------------------------------
         // Listeners
@@ -155,9 +150,22 @@ public class EditEmployee extends JFrame {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addValues(entry);
-                FileOutput output = new FileOutput(employees);
-                dispose();
+                // Open database
+                Database db = new Database();
+                // Save New Employee Data
+                addValues(emp);
+                db.editEmpData(emp);
+
+                // Remove current panel
+                removeAll();
+                repaint();
+                revalidate();
+                
+                // Add Form panel
+                ViewEmployee form = new ViewEmployee(employees);
+                add(form);
+                repaint();
+                revalidate();
             }
         });
 
@@ -165,12 +173,19 @@ public class EditEmployee extends JFrame {
         closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FileOutput output = new FileOutput(employees);
-                dispose();
+                // Remove current panel
+                removeAll();
+                repaint();
+                revalidate();
+                
+                // Add Form panel
+                ViewEmployee form = new ViewEmployee(employees);
+                add(form);
+                repaint();
+                revalidate();
             }
         });
 
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
     }
 
@@ -179,30 +194,30 @@ public class EditEmployee extends JFrame {
     // Methods
     // -----------------------------------
 
-    private void showEmployee(Map.Entry<Integer, Employee> entry) {
+    private void showEmployee(Employee entry) {
         // Fill employee data in fields
-        empIDField.setText(entry.getValue().grabEmpID().toString());
-        fNameField.setText(entry.getValue().grabFirstName());
-        lNameField.setText(entry.getValue().grabLastName());
-        emailField.setText(entry.getValue().grabEmail());
-        phoneNumberField.setText(entry.getValue().grabPhoneNumber());
-        stateField.setText(entry.getValue().grabState());
-        cityField.setText(entry.getValue().grabCity());
-        postCodeField.setText(entry.getValue().grabPostCode());
-        // roleField.setText(entry.getValue().grabRole());
+        empIDField.setText(entry.grabEmpID().toString());
+        fNameField.setText(entry.grabFirstName());
+        lNameField.setText(entry.grabLastName());
+        emailField.setText(entry.grabEmail());
+        phoneNumberField.setText(entry.grabPhoneNumber());
+        stateField.setText(entry.grabState());
+        cityField.setText(entry.grabCity());
+        postCodeField.setText(entry.grabPostCode());
+        roleField.setText(entry.grabRole());
 
     }
 
-    private void addValues(Map.Entry<Integer, Employee> entry) {
-        entry.getValue().empIDValid(empIDField.getText());
-        entry.getValue().fnameValid(fNameField.getText());
-        entry.getValue().lnameValid(lNameField.getText());
-        entry.getValue().emailValid(emailField.getText());
-        entry.getValue().phoneNumberValid(phoneNumberField.getText());
-        entry.getValue().stateValid(stateField.getText());
-        entry.getValue().cityValid(cityField.getText());
-        entry.getValue().postCodeValid(postCodeField.getText());
-        // entry.getValue().roleValid(roleField.getText());
+    private void addValues(Employee entry) {
+        entry.empIDValid(entry.grabEmpID());
+        entry.fnameValid(fNameField.getText());
+        entry.lnameValid(lNameField.getText());
+        entry.emailValid(emailField.getText());
+        entry.phoneNumberValid(phoneNumberField.getText());
+        entry.stateValid(stateField.getText());
+        entry.cityValid(cityField.getText());
+        entry.postCodeValid(postCodeField.getText());
+        entry.roleValid(roleField.getText());
     }
 
 }
