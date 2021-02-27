@@ -1,6 +1,10 @@
 # Employee Software Tracker
 Tracks employee data and the software they own.
 
+## Version 1.4
+* Added PostgreSQL database support
+* Added Projects class with all supporting classes (Edit, Delete, Add)
+
 ## Version 1.3
 * Added EditBug class 
 * Added an edit method for Employees
