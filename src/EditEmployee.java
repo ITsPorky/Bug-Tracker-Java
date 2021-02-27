@@ -14,7 +14,7 @@ public class EditEmployee extends JPanel {
     // Labels
     // Employee Labels/Fields
     private JLabel empIDLabel, fNameLabel, lNameLabel, emailLabel, phoneNumberLabel,
-            stateLabel, cityLabel, postCodeLabel, streetAddressLabel, roleLabel;
+            stateLabel, cityLabel, postCodeLabel, streetAddressLabel, roleLabel, pageTitle;
     private JTextField empIDField, fNameField, lNameField, emailField, phoneNumberField,
             stateField, cityField, postCodeField, streetAddressField, roleField;
     // Buttons
@@ -54,6 +54,11 @@ public class EditEmployee extends JPanel {
         // Main Panel Contents
         this.setLayout(new MigLayout());
         this.setBackground(Color.WHITE);
+
+        // Page Title
+        pageTitle = new JLabel("Edit Employee");
+        pageTitle.setFont(new Font("Helvetica", Font.BOLD, 48));
+        this.add(pageTitle, "span, wrap 50");
 
         // Report Section Fields/Labels
         empIDLabel = new JLabel("Employee ID:");

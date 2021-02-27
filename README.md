@@ -1,5 +1,5 @@
-# Bug Tracker
-Tracks Projects and the Bugs that occur within the project. Can also assign employees to a bug.
+# Employee Software Tracker
+Tracks employee data and the software they own.
 
 ## Version 1.3
 * Added EditBug class 

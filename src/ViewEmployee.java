@@ -100,20 +100,20 @@ public class ViewEmployee extends JPanel {
         this.add(editEmpButton, "wrap, align right");
 
         // Make table elements hoverable
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
+        // table.addMouseListener(new java.awt.event.MouseAdapter() {
             
-            public void mouseMoved(java.awt.event.MouseEvent e) {
-                int row = table.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    // easiest way:
-                    table.clearSelection();
-                    table.setRowSelectionInterval(row, row);
-                }
-                else {
-                    table.setSelectionBackground(Color.blue);
-                }
-            }
-        });
+        //     public void mouseMoved(java.awt.event.MouseEvent e) {
+        //         int row = table.rowAtPoint(e.getPoint());
+        //         if (row > -1) {
+        //             // easiest way:
+        //             table.clearSelection();
+        //             table.setRowSelectionInterval(row, row);
+        //         }
+        //         else {
+        //             table.setSelectionBackground(Color.blue);
+        //         }
+        //     }
+        // });
 
 
         // -----------------------------------
@@ -267,10 +267,6 @@ public class ViewEmployee extends JPanel {
         String[] columnNames = {"ID:", "Name:", "Email:", "Phone:", 
                 "State:", "City:", "PostCode:", "Role:"};
         
-        // for(int i = 0; i < columnNames.length; i++) {
-        //     columnNames[i].setFont(new Font("Helvetica", Font.BOLD, 20));
-        // }
-        
         // Table employee data
         Object[][] data = new Object[employees.size()][8];
         int i = 0;
@@ -295,7 +291,7 @@ public class ViewEmployee extends JPanel {
         table = Style.table(table);
 
         // Resize table fields
-        table.setRowHeight(30);
+        table.setRowHeight(50);
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(150);
         table.getColumnModel().getColumn(2).setPreferredWidth(250);
@@ -308,6 +304,13 @@ public class ViewEmployee extends JPanel {
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(3).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(4).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(5).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(6).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(7).setCellRenderer(cellRenderer);
 
         table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
         // table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);

@@ -1,12 +1,11 @@
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
 
 public class Style {
 
     // Colors 
     // private static Color oldBlue = new Color(16, 37, 56);
-    private static Color fgColor = new Color(61, 61, 61);
+    // private static Color fgColor = new Color(61, 61, 61);
     private static Color white = new Color(255, 255, 255);
     private static Color bgBlue = new Color(59, 134, 191);
     private static Color hoverBlue = new Color(53, 119, 171);
@@ -50,6 +49,14 @@ public class Style {
 
         return button;
     }
+
+    // Active Button
+    public static JButton active(JButton button) {
+        // Set selected button to active
+        button.setBackground(hoverBlue);
+
+        return button;
+    }   
 
     // Logo Button 
     public static JButton logo(JButton button) {

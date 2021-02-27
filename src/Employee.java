@@ -1,5 +1,7 @@
 // Employee Class
 import javax.swing.*;
+import java.awt.*;
+import java.awt.TextComponent;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Map;
@@ -22,6 +24,7 @@ public class Employee {
     private String postCode;
     private String role;
     
+    private InputVerifier verifier;
     // private Map.Entry<Integer, Employee> next;
     // private Map.Entry<Integer, Employee> previous;
     // Validation Scanner
@@ -220,15 +223,20 @@ public class Employee {
 
     // First Name Validation
     public void fnameValid(String input) {
-        boolean flag;
-        do {
-            String namePattern = "[a-zA-Z\\s]{3,25}";
-            flag = input.matches(namePattern);
-            if (!flag) System.out.println("Invalid first name");
-        } while (!flag);
-        System.out.println("Valid first name");
-        System.out.println("The first name " + input + " has been set\n");
-        
+        String namePattern = "[a-zA-Z\\s]{3,25}";
+        // InputVerifier verifier = new InputVerifier() {
+        //     public boolean verify(JComponent input) {
+        //       final JComponent source = (JComponent) input;
+        //       if (!(input.getValue().matches(namePattern))) {
+        //         JOptionPane.showMessageDialog(source, "Can't leave.", "Error Dialog",
+        //             JOptionPane.ERROR_MESSAGE);
+        //         return false;
+        //       } else {
+        //         return true;
+        //       }
+        //     }
+        //   };
+        //   input.setInputVerifier(verifier);
         setFirstName(input);
     }
 

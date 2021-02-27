@@ -5,21 +5,22 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 import net.miginfocom.swing.MigLayout;
 
-public class EditBug extends JPanel{
+public class EditProject extends JPanel {
     // ----------------------------------
     // Variables/Fields
     // ----------------------------------
 
     // Labels
     // Employee Labels/Fields
-    private JLabel idLabel, nameLabel, typeLabel, priorityLabel, statusLabel, pageTitle;
-    private JTextField idField, nameField, typeField, priorityField, statusField;
+    private JLabel idLabel, nameLabel, startDateLabel, estimatedDurationLabel, 
+        priorityLabel, pageTitle;
+    private JTextField idField, nameField, startDateField, estimatedDurationField, priorityField;
     // Buttons
     private JButton closeButton, saveButton;
     // Employee Map
-    private Map<Integer, Bug> bugs;
-    private Map.Entry<Integer, Bug> entry;
-    private Bug bug;
+    private Map<Integer, Project> projects;
+    private Map.Entry<Integer, Project> entry;
+    private Project project;
 
 
     // ----------------------------------
@@ -27,37 +28,37 @@ public class EditBug extends JPanel{
     // ----------------------------------
 
     // Default Constructor
-    public EditBug() {
-        initEditBug();
+    public EditProject() {
+        initEditProject();
     }
 
     // Default Constructor
-    public EditBug(Map<Integer, Bug> bugs, Bug bug) {
-        this.bugs = bugs;
-        this.bug = bug;
+    public EditProject(Map<Integer, Project> projects, Project project) {
+        this.projects = projects;
+        this.project = project;
         // Initialise Form
-        initEditBug();
+        initEditProject();
         // Fill fields with employee data
-        showBug(bug);
+        showProject(project);
     }
 
     // -----------------------------------
     // Initialisation
     // -----------------------------------
 
-    private void initEditBug() {
+    private void initEditProject() {
 
         // Main Panel Contents
         this.setLayout(new MigLayout());
         this.setBackground(Color.WHITE);
 
         // Page Title
-        pageTitle = new JLabel("Edit Bug");
+        pageTitle = new JLabel("Edit Project");
         pageTitle.setFont(new Font("Helvetica", Font.BOLD, 48));
         this.add(pageTitle, "span, wrap 50");
 
         // Report Section Fields/Labels
-        idLabel = new JLabel("Bug ID:");
+        idLabel = new JLabel("Project ID:");
         idField = new JTextField("");
         idLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         idField.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -67,20 +68,20 @@ public class EditBug extends JPanel{
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         nameField.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        typeLabel = new JLabel("Type:");
-        typeField = new JTextField("");
-        typeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        typeField.setFont(new Font("Arial", Font.PLAIN, 20));
+        startDateLabel = new JLabel("Start Date:");
+        startDateField = new JTextField("");
+        startDateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        startDateField.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        estimatedDurationLabel = new JLabel("Estimated Duration:");
+        estimatedDurationField = new JTextField("");
+        estimatedDurationLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        estimatedDurationField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         priorityLabel = new JLabel("Priority:");
         priorityField = new JTextField("");
         priorityLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         priorityField.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        statusLabel = new JLabel("Status:");
-        statusField = new JTextField("");
-        statusLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        statusField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Top Row
         // this.add(empIDLabel, "label align");
@@ -88,13 +89,13 @@ public class EditBug extends JPanel{
         // 1st Row
         this.add(nameLabel, "label align, right");
         this.add(nameField, "grow");
-        this.add(typeLabel, "label align, right");
-        this.add(typeField, "grow, wrap 50");
+        this.add(startDateLabel, "label align, right");
+        this.add(startDateField, "grow, wrap 50");
         // 2nd Row
+        this.add(estimatedDurationLabel, "label align, right");
+        this.add(estimatedDurationField, "grow");
         this.add(priorityLabel, "label align, right");
-        this.add(priorityField, "grow");
-        this.add(statusLabel, "label align, right");
-        this.add(statusField, "grow, wrap 50");
+        this.add(priorityField, "grow, wrap 50");
 
         // Close Button
         closeButton = new JButton("Cancel");
@@ -118,8 +119,8 @@ public class EditBug extends JPanel{
                 // Open database
                 Database db = new Database();
                 // Save New Bug Data
-                addValues(bug);
-                db.editBugData(bug);
+                addValues(project);
+                db.editProjectData(project);
 
                 // Remove current panel
                 removeAll();
@@ -127,7 +128,7 @@ public class EditBug extends JPanel{
                 revalidate();
                 
                 // Add Form panel
-                ViewBugs form = new ViewBugs(bugs);
+                ViewProjects form = new ViewProjects(projects);
                 add(form);
                 repaint();
                 revalidate();
@@ -144,7 +145,7 @@ public class EditBug extends JPanel{
                 revalidate();
                 
                 // Add Form panel
-                ViewBugs form = new ViewBugs(bugs);
+                ViewProjects form = new ViewProjects(projects);
                 add(form);
                 repaint();
                 revalidate();
@@ -159,21 +160,20 @@ public class EditBug extends JPanel{
     // Methods
     // -----------------------------------
 
-    private void showBug(Bug entry) {
+    private void showProject(Project entry) {
         // Fill Bug data in fields
         idField.setText(entry.grabID().toString());
         nameField.setText(entry.grabName());
-        typeField.setText(entry.grabType());
+        startDateField.setText(entry.grabStartDate());
+        estimatedDurationField.setText(entry.grabEstimatedDuration());
         priorityField.setText(entry.grabPriority());
-        statusField.setText(entry.grabStatus());
     }
 
-    private void addValues(Bug entry) {
+    private void addValues(Project entry) {
         entry.IDValid(entry.grabID());
         entry.nameValid(nameField.getText());
-        entry.typeValid(typeField.getText());
+        entry.startDateValid(startDateField.getText());
+        entry.estimatedDurationValid(estimatedDurationField.getText());
         entry.priorityValid(priorityField.getText());
-        entry.statusValid(statusField.getText());
     }
 }
-

@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.util.Scanner;
 
-public class Bug {
+public class Project {
 
     // ----------------------------------
     // Variables/Fields
@@ -9,10 +9,9 @@ public class Bug {
 
     private Integer ID;
     private String name;
-    private String type;
+    private String startDate;
+    private String estimatedDuration;
     private String priority;
-    private String status;
-    private Integer assignedTo;
 
     // Validation Scanner
     Scanner sc = new Scanner(System.in);
@@ -22,28 +21,28 @@ public class Bug {
     // ----------------------------------
 
     // Default Constructor
-    public Bug() {
+    public Project() {
         ID = 0;
         name = "";
-        type = "";
+        startDate = "";
+        estimatedDuration = "";
         priority = "";
-        status = "";
     }
 
     // Argument Constructor
-    public Bug(Integer ID, 
-            String name, 
-            String type, 
-            String priority, 
-            String status) {
+    public Project(Integer ID, 
+            String name,  
+            String startDate, 
+            String estimatedDuration,
+            String priority) {
         setID(ID);
         setName(name);
-        setType(type);
+        setStartDate(startDate);
+        setEstimatedDuration(estimatedDuration);
         setPriority(priority);
-        setStatus(status);
     }
 
-    // -----------------------------------
+     // -----------------------------------
     // Methods
     // -----------------------------------
 
@@ -77,18 +76,32 @@ public class Bug {
         return getName();
     }
 
-    // Type
-    private void setType(String type) {
-        this.type = type;
+    // Start Date
+    private void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
-    private String getType() {
-        return type;
+    private String getStartDate() {
+        return startDate;
     }
-    public void inputType(String type) {
-        setName(type);
+    public void inputStartDate(String startDate) {
+        setStartDate(startDate);
     }
-    public String grabType() {
-        return getType();
+    public String grabStartDate() {
+        return getStartDate();
+    }
+
+    // Estimated Duration
+    private void setEstimatedDuration(String estimatedDuration) {
+        this.estimatedDuration = estimatedDuration;
+    }
+    private String getEstimatedDuration() {
+        return estimatedDuration;
+    }
+    public void inputEstimatedDuration(String estimatedDuration) {
+        setEstimatedDuration(estimatedDuration);
+    }
+    public String grabEstimatedDuration() {
+        return getEstimatedDuration();
     }
 
     // Priority
@@ -99,24 +112,10 @@ public class Bug {
         return priority;
     }
     public void inputPriority(String priority) {
-        setName(priority);
+        setPriority(priority);
     }
     public String grabPriority() {
         return getPriority();
-    }
-
-    // Status
-    private void setStatus(String status) {
-        this.status = status;
-    }
-    private String getStatus() {
-        return status;
-    }
-    public void inputStatus(String status) {
-        setStatus(status);
-    }
-    public String grabStatus() {
-        return getStatus();
     }
 
     // -----------------------------------
@@ -125,13 +124,13 @@ public class Bug {
 
     // ID Valid
     public void IDValid(int input) {
-        // boolean flag;
+        boolean flag;
         do {
             // int IDPattern = "[0-9]{1,25}";
             // flag = input.matches(IDPattern);
             if (input == (int)input) {
                 System.out.println("Invalid ID");
-                // JPopupMenu error = new JPopupMenu("Error: Invalid Input");
+                JPopupMenu error = new JPopupMenu("Error: Invalid Input");
 
                 break;
             }
@@ -146,7 +145,7 @@ public class Bug {
     public void nameValid(String input) {
         boolean flag;
         do {
-            String namePattern = "[a-zA-Z1-9\\s]{3,25}";
+            String namePattern = "[a-zA-Z0-9\\s]{3,25}";
             flag = input.matches(namePattern);
             if (!flag) System.out.println("Invalid name");
         } while (!flag);
@@ -156,46 +155,46 @@ public class Bug {
         setName(input);
     }
 
-    // Type Validation
-    public void typeValid(String input) {
+    // startDate Validation
+    public void startDateValid(String input) {
         boolean flag;
         do {
-            String namePattern = "[a-zA-Z1-9\\s]{3,25}";
+            String namePattern = "[0-9]{1,2}(/|-)[0-9]{1,2}(/|-)[0-9]{4}";
             flag = input.matches(namePattern);
-            if (!flag) System.out.println("Invalid type");
+            if (!flag) System.out.println("Invalid Start Date");
         } while (!flag);
-        System.out.println("Valid type");
-        System.out.println("The type " + input + " has been set\n");
+        System.out.println("Valid Start Date");
+        System.out.println("The Start Date " + input + " has been set\n");
         
-        setType(input);
+        setStartDate(input);
+    }
+
+    // estimated Duration Validation
+    public void estimatedDurationValid(String input) {
+        boolean flag;
+        do {
+            String namePattern = "[0-9]{1,6}";
+            flag = input.matches(namePattern);
+            if (!flag) System.out.println("Invalid Duration");
+        } while (!flag);
+        System.out.println("Valid Duration");
+        System.out.println("The Duration " + input + " has been set\n");
+        
+        setEstimatedDuration(input);
     }
 
     // Priority Validation
     public void priorityValid(String input) {
         boolean flag;
         do {
-            String namePattern = "[a-zA-Z\\s]{3,25}";
+            String namePattern = "[a-zA-Z1-9\\s]{3,25}";
             flag = input.matches(namePattern);
-            if (!flag) System.out.println("Invalid priority");
+            if (!flag) System.out.println("Invalid Priority");
         } while (!flag);
-        System.out.println("Valid priority");
-        System.out.println("The priority " + input + " has been set\n");
+        System.out.println("Valid Priority");
+        System.out.println("The Priority " + input + " has been set\n");
         
         setPriority(input);
-    }
-
-    // Status Validation
-    public void statusValid(String input) {
-        boolean flag;
-        do {
-            String namePattern = "[a-zA-Z\\s]{3,25}";
-            flag = input.matches(namePattern);
-            if (!flag) System.out.println("Invalid status");
-        } while (!flag);
-        System.out.println("Valid status");
-        System.out.println("The status " + input + " has been set\n");
-        
-        setStatus(input);
     }
 
     // Output Of Bug Objects 
@@ -203,8 +202,8 @@ public class Bug {
     public String toString() {
         return getID() + "\n" +
          getName() + "\n" + 
-         getType() + "\n" +
-         getPriority() + "\n" +
-         getStatus() + "\n";
+         getStartDate() + "\n" +
+         getEstimatedDuration();
     }
+
 }

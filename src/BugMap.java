@@ -38,7 +38,7 @@ public class BugMap {
     private Map<Integer, Bug> getBugs() {
         return bugs;
     }
-    public void inputBugs(Map<Integer, Bug> employees) {
+    public void inputBugs(Map<Integer, Bug> bugs) {
         setBugs(bugs);
     }
     public Map<Integer, Bug> grabBugs() {

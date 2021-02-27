@@ -1,11 +1,8 @@
 // GUI Class
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import net.miginfocom.swing.MigLayout;
@@ -15,16 +12,17 @@ public class GUI extends JFrame {
     // ----------------------------------
     // Variables/Fields
     // ----------------------------------
- 
-    private JFileChooser fileChooser;
-    private String filePath;
+
+    private int screenWidth;
+    private int screenHeight;
 
     private EmployeeMap employees;
     private BugMap bugs;
+    private ProjectMap projects;
 
     // Buttons
     private JButton homeButton, exitButton, bugButton, 
-            employeeButton, addEmpButton, empReport;
+            employeeButton, projectButton;
 
     // Panels
     private JPanel left, center;
@@ -40,8 +38,12 @@ public class GUI extends JFrame {
     public GUI() {
         employees = new EmployeeMap();
         bugs = new BugMap();
+        projects = new ProjectMap();
         // Connect to database
-        // Database db = new Database();
+        Database db = new Database();
+        db.readEmpData(employees);
+        db.readBugData(bugs);
+        db.readProjectData(projects);
         // Initialise GUI Window
         initWindow();
     }
@@ -57,7 +59,7 @@ public class GUI extends JFrame {
         // Initialise the GUI
         // Methods
         this.setLayout(new BorderLayout());
-        this.setTitle("Employee Software Tracker");
+        this.setTitle("Bug Tracker");
         this.setSize(900, 600);
 
         // Logo
@@ -74,7 +76,9 @@ public class GUI extends JFrame {
         center = new JPanel();
         center.setBackground(Color.WHITE);
         
-        // TODO: Create a home page
+        // Home Page
+        HomePage homePage = new HomePage(employees, bugs, projects);
+        center.add(homePage);
 
         // Home Button
         homeButton = new JButton("Home");
@@ -82,11 +86,17 @@ public class GUI extends JFrame {
         homeButton = Style.hover(homeButton);
         left.add(homeButton, "wrap, grow");
 
-        // View Employees
+        // View Bugs
         bugButton = new JButton("View Bugs");
         bugButton = Style.styleButton(bugButton, 20);
         bugButton = Style.hover(bugButton);
         left.add(bugButton, "wrap, grow");
+
+        // View Projects
+        projectButton = new JButton("View Projects");
+        projectButton = Style.styleButton(projectButton, 20);
+        projectButton = Style.hover(projectButton);
+        left.add(projectButton, "wrap, grow");
 
         // View Employees
         employeeButton = new JButton("View Employees");
@@ -120,10 +130,16 @@ public class GUI extends JFrame {
                 center.removeAll();
                 center.repaint();
                 center.revalidate();
+
+                // Add panel
+                HomePage form = new HomePage(employees, bugs, projects);
+                center.add(form);
+                center.repaint();
+                center.revalidate();
             }
         });
 
-        // View Employees Button
+        // View Bugs Button
         bugButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,6 +154,27 @@ public class GUI extends JFrame {
 
                 // Add Form panel
                 ViewBugs form = new ViewBugs(bugs.grabBugs());
+                center.add(form);
+                center.repaint();
+                center.revalidate();
+            }
+        });
+
+        // View Projects Button
+        projectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Remove current panel
+                center.removeAll();
+                center.repaint();
+                center.revalidate();
+
+                // Read database data
+                Database db = new Database();
+                db.readProjectData(projects);
+
+                // Add Form panel
+                ViewProjects form = new ViewProjects(projects.grabProjects());
                 center.add(form);
                 center.repaint();
                 center.revalidate();
@@ -188,6 +225,7 @@ public class GUI extends JFrame {
 
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setMinimumSize(new Dimension(960, 540));
         this.setVisible(true);
 
     }
@@ -201,5 +239,36 @@ public class GUI extends JFrame {
     private void closeWindow() {
         this.dispose();
     }
+
+    // Resizing window
+    // public JComponent resizeWindow(JComponent component) {
+    //     // java - get screen size using the Toolkit class
+    //     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    //     // the screen height
+    //     screenSize.getHeight();
+
+    //     // the screen width
+    //     screenSize.getWidth();
+
+    //     int screenHeight = screenSize.height;
+    //     int screenWidth = screenSize.width;
+
+    //     return component;
+    // }
+
+    // private void setScreenSize(int width, int height) {
+    //     this.screenWidth = width;
+    //     this.screenHeight = height;
+    // }
+    // private Dimension getScreenSize() {
+    //     Dimension screen = new Dimension(screenWidth, screenHeight);
+    //     return screen;
+    // }
+    // public void inputScreenSize(int width, int height) {
+    //     setScreenSize(width, height);
+    // }
+    // public Dimension grabScreenSize() {
+    //     return getScreenSize();
+    // }
     
 }

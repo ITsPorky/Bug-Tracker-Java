@@ -50,8 +50,6 @@ public class ViewBugs extends JPanel{
         iterator = entries.iterator();
         // Initialise Form
         initForm();
-        // Fill fields with employee data
-        // showEmployee();
     }
 
     // -----------------------------------
@@ -95,20 +93,20 @@ public class ViewBugs extends JPanel{
         this.add(editBugButton, "wrap, align right");
 
         // Make table elements hoverable
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
+        // table.addMouseListener(new java.awt.event.MouseAdapter() {
             
-            public void mouseMoved(java.awt.event.MouseEvent e) {
-                int row = table.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    // easiest way:
-                    table.clearSelection();
-                    table.setRowSelectionInterval(row, row);
-                }
-                else {
-                    table.setSelectionBackground(Color.blue);
-                }
-            }
-        });
+        //     public void mouseMoved(java.awt.event.MouseEvent e) {
+        //         int row = table.rowAtPoint(e.getPoint());
+        //         if (row > -1) {
+        //             // easiest way:
+        //             table.clearSelection();
+        //             table.setRowSelectionInterval(row, row);
+        //         }
+        //         else {
+        //             table.setSelectionBackground(Color.blue);
+        //         }
+        //     }
+        // });
 
 
         // -----------------------------------
@@ -251,10 +249,10 @@ public class ViewBugs extends JPanel{
             entry = iterator.next();
             // Insert bug data into array
             data[i] [0] = entry.getValue().grabID().toString();
-            data[i] [1] = entry.getValue().grabName().toString();
-            data[i] [2] = entry.getValue().grabType().toString();
-            data[i] [3] = entry.getValue().grabPriority().toString();
-            data[i] [4] = entry.getValue().grabStatus().toString();
+            data[i] [1] = entry.getValue().grabName();
+            data[i] [2] = entry.getValue().grabType();
+            data[i] [3] = entry.getValue().grabPriority();
+            data[i] [4] = entry.getValue().grabStatus();
             // Increment
             i++;
         }
@@ -263,18 +261,22 @@ public class ViewBugs extends JPanel{
         table = Style.table(table);
 
         // Resize table fields
-        table.setRowHeight(30);
+        table.setRowHeight(50);
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(300);
-        table.getColumnModel().getColumn(2).setPreferredWidth(225);
-        table.getColumnModel().getColumn(3).setPreferredWidth(225);
-        table.getColumnModel().getColumn(4).setPreferredWidth(225);      
+        table.getColumnModel().getColumn(2).setPreferredWidth(258);
+        table.getColumnModel().getColumn(3).setPreferredWidth(258);
+        table.getColumnModel().getColumn(4).setPreferredWidth(258);      
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(3).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(4).setCellRenderer(cellRenderer);
 
-        table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         // table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         
         return table;

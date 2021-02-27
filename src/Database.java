@@ -100,17 +100,21 @@ public class Database {
             ResultSet resSet = db.executeQuery("SELECT * FROM employees");
             while (resSet.next()) {
                 // Create Employee
-                Employee emp = new Employee();
+                Employee emp = new Employee(resSet.getInt("emp_id"), resSet.getString("emp_fname"),
+                    resSet.getString("emp_lname"), resSet.getString("emp_email"),
+                    resSet.getString("emp_phone"), resSet.getString("emp_state"),
+                    resSet.getString("emp_city"), resSet.getString("emp_postcode"),
+                    resSet.getString("emp_role"));
                 // Store data to Employee
-                emp.inputEmpID(resSet.getInt("emp_id"));
-                emp.inputFirstName(resSet.getString("emp_fname"));
-                emp.inputLastName(resSet.getString("emp_lname"));
-                emp.inputEmail(resSet.getString("emp_email"));
-                emp.inputPhoneNumber(resSet.getString("emp_phone"));
-                emp.inputState(resSet.getString("emp_state"));
-                emp.inputCity(resSet.getString("emp_city"));
-                emp.inputPostCode(resSet.getString("emp_postcode"));
-                emp.inputRole(resSet.getString("emp_role"));
+                // emp.inputEmpID(resSet.getInt("emp_id"));
+                // emp.inputFirstName(resSet.getString("emp_fname"));
+                // emp.inputLastName(resSet.getString("emp_lname"));
+                // emp.inputEmail(resSet.getString("emp_email"));
+                // emp.inputPhoneNumber(resSet.getString("emp_phone"));
+                // emp.inputState(resSet.getString("emp_state"));
+                // emp.inputCity(resSet.getString("emp_city"));
+                // emp.inputPostCode(resSet.getString("emp_postcode"));
+                // emp.inputRole(resSet.getString("emp_role"));
                 
                 // save map
                 map.addEmployee(map.grabEmployees() ,emp);
@@ -219,6 +223,123 @@ public class Database {
 
 
     // -----------------------------------
+    // Project Data Methods
+    // -----------------------------------
+
+    // Get Bug data from database
+    public void readProjectData(ProjectMap map) {
+        try{
+            Database db = new Database();
+            ResultSet resSet = db.executeQuery("SELECT * FROM projects");
+
+            while (resSet.next()) {
+                // Create Employee
+                Project project = new Project(resSet.getInt("project_id"), 
+                    resSet.getString("project_name"), resSet.getString("project_start"),
+                    resSet.getString("project_duration"), resSet.getString("project_priority"));
+                // Store data to Employee
+                // bug.inputID(resSet.getInt("bug_id"));
+                // bug.inputName(resSet.getString("bug_name"));
+                // bug.inputType(resSet.getString("bug_type"));
+                // bug.inputPriority(resSet.getString("bug_priority"));
+                // bug.inputStatus(resSet.getString("bug_status"));
+                
+                // save map
+                map.addProject(map.grabProjects(), project);
+            }
+
+            resSet.close();
+            db.closeConnection();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Insert Bug to database
+    public long insertProjectData(Project project) {
+        long id = 0;
+        // SQL statement
+        String SQL = "INSERT INTO projects(project_id, project_name," 
+        + "project_start, project_duration, project_priority)"
+        + "VALUES(?,?,?,?,?)";
+
+        try(Connection conn = connect();
+                PreparedStatement pstmt = conn.prepareStatement(SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+
+            // Get employee data
+            pstmt.setInt(1, project.grabID());
+            pstmt.setString(2, project.grabName());
+            pstmt.setString(3, project.grabStartDate());
+            pstmt.setString(4, project.grabEstimatedDuration());
+            pstmt.setString(5, project.grabPriority());
+
+            int affectedRows = pstmt.executeUpdate();
+            // check the affected rows 
+            if (affectedRows > 0) {
+                // get the ID back
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        id = rs.getLong(1);
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    // Edit an Bug data
+    public void editProjectData(Project project) {
+        // SQL statement
+        String SQL = "UPDATE bugs SET project_name = ?, project_start = ?,"
+            +"project_duration = ?, project_priority WHERE project_id = ?"; 
+
+        try(Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+            // Open database connection
+            Database db = new Database();
+
+            // Get employee data
+            pstmt.setString(1, project.grabName());
+            pstmt.setString(2, project.grabStartDate());
+            pstmt.setString(3, project.grabEstimatedDuration());
+            pstmt.setString(4, project.grabPriority());
+            pstmt.setInt(5, project.grabID());
+                        
+            pstmt.executeUpdate();
+            db.closeConnection();
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Delete an bug from database
+    public void deleteProjectData(Project project) {
+        String SQL = "DELETE FROM bugs WHERE bug_id = ?";
+
+        try(Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+            // Open database connection
+            Database db = new Database();
+                        
+            pstmt.setInt(1, project.grabID());
+
+            pstmt.executeUpdate();
+            db.closeConnection();
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+     // -----------------------------------
     // Bug Data Methods
     // -----------------------------------
 
@@ -230,13 +351,15 @@ public class Database {
 
             while (resSet.next()) {
                 // Create Employee
-                Bug bug = new Bug();
+                Bug bug = new Bug(resSet.getInt("bug_id"), 
+                    resSet.getString("bug_name"), resSet.getString("bug_type"),
+                    resSet.getString("bug_priority"), resSet.getString("bug_status"));
                 // Store data to Employee
-                bug.inputID(resSet.getInt("bug_id"));
-                bug.inputName(resSet.getString("bug_name"));
-                bug.inputType(resSet.getString("bug_type"));
-                bug.inputPriority(resSet.getString("bug_priority"));
-                bug.inputStatus(resSet.getString("bug_status"));
+                // bug.inputID(resSet.getInt("bug_id"));
+                // bug.inputName(resSet.getString("bug_name"));
+                // bug.inputType(resSet.getString("bug_type"));
+                // bug.inputPriority(resSet.getString("bug_priority"));
+                // bug.inputStatus(resSet.getString("bug_status"));
                 
                 // save map
                 map.addBug(map.grabBugs(), bug);
@@ -286,11 +409,11 @@ public class Database {
         return id;
     }
 
-    // Edit an employees data
+    // Edit an Bug data
     public void editBugData(Bug bug) {
         // SQL statement
         String SQL = "UPDATE bugs SET bug_name = ?, bug_type = ?,"
-            +"bug_priority = ?, bug_status = ? WHERE emp_id = ?"; 
+            +"bug_priority = ?, bug_status = ? WHERE bug_id = ?"; 
 
         try(Connection conn = connect();
             PreparedStatement pstmt = conn.prepareStatement(SQL)) {

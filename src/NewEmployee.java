@@ -207,9 +207,8 @@ public class NewEmployee extends JPanel {
         newEmp.cityValid(cityField.getText());
         newEmp.postCodeValid(postCodeField.getText());
         newEmp.roleValid(roleField.getText());
-
+        // Add to map
         employees.put(newEmp.grabEmpID(), newEmp);
-
     }
 
 }
